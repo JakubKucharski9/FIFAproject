@@ -1,23 +1,24 @@
 import sqlite3
 
-conn = sqlite3.connect('database.sqlite')
-cursor = conn.cursor()
+with sqlite3.connect('database.sqlite') as conn:
+    cursor = conn.cursor()
 
-cursor.execute("""
-                    Select id, home_team_goal, away_team_goal, whh, whd, wha from Match
-                    where home_player_X1 is not null and
-                    whh is not null and
-                    whd is not null and
-                    wha is not null and
-                    (whh > wha and home_team_goal > away_team_goal) or
-                    (whh < wha and home_team_goal < away_team_goal)
-                """)
+    cursor.execute("PRAGMA table_info('Match')")
+    query = cursor.fetchall()
+    column_names = [column[1] for column in query]
+    books = column_names[85:]
 
-query = cursor.fetchall()
+    shift = "\n\t\t\t\t\t"
 
+    conditions_books = f" AND {shift}".join([f"{book} IS NOT NULL" for book in books])
+    conditions_goals = f"{shift}home_team_goal > away_team_goal OR {shift}home_team_goal < away_team_goal"
+    full_conditions = f"{conditions_books} AND {conditions_goals}"
 
-print(len(query))
-
-
-
-conn.close()
+    sql_ask = f"""
+                    Select id, home_team_goal, away_team_goal, whh, whd, wha
+                    from Match
+                    where {full_conditions}
+                    """
+    cursor.execute(sql_ask)
+    query = cursor.fetchall()
+    print(len(query))
