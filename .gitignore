@@ -1,0 +1,7 @@
+.venv
+
+.idea
+
+database.sqlite
+
+*~
