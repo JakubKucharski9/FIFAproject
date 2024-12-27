@@ -73,10 +73,10 @@ def convert_work_rate(value):
 
 
 def calculate_work_rate_avg(data, work_rate_type):
-    players_home_start_col = data.columns.get_loc(f"home_player_1_{work_rate_type}")
+    players_home_start_col = data.columns.get_loc(f"home_player_2_{work_rate_type}")
     players_home_end_col = data.columns.get_loc(f"home_player_11_{work_rate_type}") + 1
 
-    players_away_start_col = data.columns.get_loc(f"away_player_1_{work_rate_type}")
+    players_away_start_col = data.columns.get_loc(f"away_player_2_{work_rate_type}")
     players_away_end_col = data.columns.get_loc(f"away_player_11_{work_rate_type}") + 1
 
     players_home_work_rate = data.iloc[:, players_home_start_col:players_home_end_col].map(convert_work_rate)
