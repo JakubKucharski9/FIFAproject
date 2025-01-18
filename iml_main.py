@@ -211,3 +211,4 @@ if __name__ == '__main__':
         calculate_work_rate_avg(matches, "attacking_work_rate")
         # Save the processed match data to the database
         matches.to_sql('Match_for_plots', conn, if_exists='replace', index=False)
+

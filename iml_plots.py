@@ -97,3 +97,13 @@ if __name__ == '__main__':
         plt.title('Top 10 Most Important Features')
         plt.gca().invert_yaxis()
         plt.show()
+
+        # Visualize feature importances
+        top_features = importances_df
+        plt.figure(figsize=(15, 15))
+        plt.barh(top_features['Feature'], top_features['Importance'], color='skyblue')
+        plt.xlabel('Feature Importance')
+        plt.ylabel('Feature')
+        plt.title('Every Feature Importance')
+        plt.gca().invert_yaxis()
+        plt.show()
